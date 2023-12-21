@@ -74,13 +74,21 @@ jobs:
       with:
         dotnet-version: 6.0.x
         
-    # nuget V2 source
-    - name: Add nuget package source
-      run: dotnet nuget add source https://www.nuget.org/api/v2 --name nugetV2
+    # # nuget V2 source
+    # - name: Add nuget package source
+    #   run: dotnet nuget add source https://www.nuget.org/api/v2 --name nugetV2
 
-    # Intel MSOA nuget source
-    - name: Add nuget package source
-      run: dotnet nuget add source https://msoapackages.intel.com/nuget --name MSOA
+    # # Intel MSOA nuget source
+    # - name: Add nuget package source
+    #   run: dotnet nuget add source https://msoapackages.intel.com/nuget --name MSOA
+
+    - name: nuget update config
+      run:  dotnet nuget update source myinternalpack  --configfile ./nuget.config 
+            -s ${{ secrets.artifactory_url }} 
+            # -u ${{ secrets.artifactory_user }} 
+            # -p ${{ secrets.artifactory_token }} --store-password-in-clear-text   
+    - name: restore nuget
+      run:  dotnet restore --configfile ./nuget.config  
       
     # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild.exe
