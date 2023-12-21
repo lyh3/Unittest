@@ -78,9 +78,13 @@ jobs:
     - name: Add nuget package source
       run: dotnet nuget add source https://www.nuget.org/api/v2 --name nugetV2
 
-    # Restore MSOA nuget source
-    - name: Restore MSOA nuget source
-      run: dotnet restore -s https://msoapackages.intel.com/nuget
+    # Intel MSOA nuget source
+    - name: Add nuget package source
+      run: dotnet nuget add source https://msoapackages.intel.com/nuget --name MSOA
+
+    # # Restore MSOA nuget source
+    # - name: Restore MSOA nuget source
+    #   run: dotnet restore -s https://msoapackages.intel.com/nuget --name MSOA
       
     # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild.exe
