@@ -74,9 +74,9 @@ jobs:
       with:
         dotnet-version: 6.0.x
         
-    # # Intel MSOA nuget source
-    # - name: Add nuget package source
-    #   run: dotnet nuget add source https://msoapackages.intel.com/nuget --name MSOA 
+    # Intel MSOA nuget source
+    - name: Add nuget package source
+      run: dotnet nuget add source https://msoapackages.intel.com/nuget --name MSOA 
 
     # # nuget V2 source
     # - name: Add nuget package source
