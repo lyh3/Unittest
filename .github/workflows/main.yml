@@ -80,7 +80,7 @@ jobs:
 
     # nuget V3 source
     - name: Add nuget package source
-      run: dotnet nuget add source https://www.nuget.org/api/v3/index.json --name nugetV3
+      run: dotnet nuget add source https://www.nuget.org/api/v3 --name nugetV3
 
     # Intel MSOA nuget source
     - name: Add nuget package source
