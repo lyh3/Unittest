@@ -80,19 +80,11 @@ jobs:
 
     # nuget V3 source
     - name: Add nuget package source
-      run: dotnet nuget add source https://www.nuget.org/api/v3 --name nugetV3
+      run: dotnet nuget add source https://www.nuget.org/api/v3/index.json --name nugetV3
 
     # Intel MSOA nuget source
     - name: Add nuget package source
       run: dotnet nuget add source https://msoapackages.intel.com/nuget --name MSOA
-
-    - name: nuget update config
-      run:  dotnet nuget update source myinternalpack  --configfile ./MSOAnuget.config 
-            -s ${{ secrets.artifactory_url }} 
-            -u ${{ secrets.artifactory_user }} 
-            -p ${{ secrets.artifactory_token }} --store-password-in-clear-text   
-    - name: restore nuget
-      run:  dotnet restore --configfile ./MSOAnuget.config   
       
     # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild.exe
