@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Intel.MsoAuto.C3.Loader.CC.Business", "Intel.MsoAuto.C3.Loader.CC.Business\Intel.MsoAuto.C3.Loader.CC.Business.csproj", "{3115E4D5-88D3-4179-A647-F86FA52FC891}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Intel.MsoAuto.C3.Loader.PITT.DailyTask", "Intel.MsoAuto.C3.Loader.PITT.DailyTask\Intel.MsoAuto.C3.Loader.PITT.DailyTask.csproj", "{BD34AD25-D8DD-409F-BB37-9D8A01AB2F9A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Intel.MsoAuto.C3.Loader.PITT.Business", "Intel.MsoAuto.C3.Loader.PITT.Business\Intel.MsoAuto.C3.Loader.PITT.Business.csproj", "{7D3DB25A-D80C-4009-8198-487CC66B53DC}"
@@ -15,10 +13,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3115E4D5-88D3-4179-A647-F86FA52FC891}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3115E4D5-88D3-4179-A647-F86FA52FC891}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3115E4D5-88D3-4179-A647-F86FA52FC891}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3115E4D5-88D3-4179-A647-F86FA52FC891}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BD34AD25-D8DD-409F-BB37-9D8A01AB2F9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BD34AD25-D8DD-409F-BB37-9D8A01AB2F9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD34AD25-D8DD-409F-BB37-9D8A01AB2F9A}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -3,7 +3,7 @@ using log4net;
 using Intel.MsoAuto.C3.Loader.PITT.Business.Services;
 using Intel.MsoAuto.C3.Loader.PITT.Business.Core;
 using Intel.MsoAuto.C3.Loader.PITT.Business.Entities;
-using Intel.MsoAuto.C3.Loader.CC.Business.Services;
+//using Intel.MsoAuto.C3.Loader.CC.Business.Services;
 using Intel.MsoAuto.Shared.Extensions;
 
 namespace Intel.MsoAuto.C3.Loader.PITT.DailyTask
