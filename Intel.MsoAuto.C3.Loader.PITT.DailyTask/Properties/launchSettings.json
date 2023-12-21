@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Intel.MsoAuto.C3.Loader.PITT.DailyTask": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true
+    }
+  }
+}

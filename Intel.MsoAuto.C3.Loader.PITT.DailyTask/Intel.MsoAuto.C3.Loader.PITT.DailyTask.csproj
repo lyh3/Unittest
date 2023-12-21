@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-Intel.MsoAuto.C3.Loader.PITT.DailyTask-936C5A25-CE30-4FC1-A5E5-FE6EB0025C4B</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+			<PackageReference Include="Intel.MsoAuto.Shared" Version="1.0.0.11" />
+    <PackageReference Include="Intel.MsoAuto.C3.MailService.Notification" Version="1.0.0.11" />
+    <PackageReference Include="log4net" Version="2.0.15" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Intel.MsoAuto.C3.Loader.CC.Business\Intel.MsoAuto.C3.Loader.CC.Business.csproj" />
+    <ProjectReference Include="..\Intel.MsoAuto.C3.Loader.PITT.Business\Intel.MsoAuto.C3.Loader.PITT.Business.csproj" />
+  </ItemGroup>
+</Project>
