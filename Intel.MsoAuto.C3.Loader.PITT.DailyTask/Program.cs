@@ -32,7 +32,7 @@ namespace Intel.MsoAuto.C3.Loader.PITT.DailyTask
                 new SupplierService().StartSuppliersDailyTask();
                 new StateModelService().StartStateModelDailyTask();
                 new UserService().SyncUserDataToMongo();
-                new EmailNotificationService().SendEmailNotification();//Email notification
+                new EmailNotificationService().SendEmailNotification();
                 new BottleneckService().StartSyncYieldAnalysisForecastItemsAsync();
              }
             catch (Exception e)
