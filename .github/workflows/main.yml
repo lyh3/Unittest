@@ -74,13 +74,9 @@ jobs:
       with:
         dotnet-version: 6.0.x
         
-    # # nuget V2 source
-    # - name: Add nuget package source
-    #   run: dotnet nuget add source https://www.nuget.org/api/v2 --name nugetV2
-
-    # nuget V3 source
+    # nuget V2 source
     - name: Add nuget package source
-      run: dotnet nuget add source https://www.nuget.org/api/v3 --name nugetV3
+      run: dotnet nuget add source https://www.nuget.org/api/v2 --name nugetV2
 
     # Intel MSOA nuget source
     - name: Add nuget package source
