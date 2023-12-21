@@ -80,7 +80,7 @@ jobs:
 
     # Restore MSOA nuget source
     - name: Restore MSOA nuget source
-      run: dotnet restore -s https://msoapackages.intel.com/nuget --name MSOA
+      run: dotnet restore -s https://msoapackages.intel.com/nuget
       
     # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild.exe
