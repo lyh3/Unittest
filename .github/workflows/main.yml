@@ -74,13 +74,17 @@ jobs:
       with:
         dotnet-version: 6.0.x
         
-    # # nuget V2 source
+   # # nuget V2 source
     # - name: Add nuget package source
     #   run: dotnet nuget add source https://www.nuget.org/api/v2 --name nugetV2
 
-    # # Intel MSOA nuget source
-    # - name: Add nuget package source
-    #   run: dotnet nuget add source https://msoapackages.intel.com/nuget --name MSOA
+    # nuget V3 source
+    - name: Add nuget package source
+      run: dotnet nuget add source https://www.nuget.org/api/v3/index.json --name nugetV3
+
+    # Intel MSOA nuget source
+    - name: Add nuget package source
+      run: dotnet nuget add source https://msoapackages.intel.com/nuget --name MSOA
 
     - name: nuget update config
       run:  dotnet nuget update source myinternalpack  --configfile ./MSOAnuget.config 
