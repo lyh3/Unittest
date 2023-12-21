@@ -73,7 +73,11 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
-
+        
+    # Nuget
+    - name: Add nuget package source
+      run: dotnet nuget add source https://msoapackages.intel.com/nuget/index.json --name MSOA
+      
     # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.0.2
