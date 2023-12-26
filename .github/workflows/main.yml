@@ -44,7 +44,7 @@ on:
     branches: [ "main","dev" ]
   pull_request:
     # branches: [ "main" ]
-    branches: [ "main", "dev" ]
+    branches: [ "main","dev" ]
 
 jobs:
 
@@ -53,9 +53,11 @@ jobs:
       matrix:
         configuration: [Debug, Release]
 
-    runs-on: windows-latest  # For a list of available runner types, refer to
+    # runs-on: windows-latest  # For a list of available runner types, refer to
                              # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
-    #runs-on: self-hosted
+    # runs-on: self-hosted
+    runs-on: msoa-data-engineering-windows-runner
+
     env:
       Solution_Name: Intel.MsoAuto.DataLoader.sln                       # Replace with your solution name, i.e. MyWpfApp.sln.
       # Test_Project_Path: your-test-project-path                 # Replace with the path to your test project, i.e. MyWpfApp.Tests\MyWpfApp.Tests.csproj.
@@ -73,19 +75,19 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
-        
+
     # Intel MSOA nuget source
     - name: Add nuget package source
       run: dotnet nuget add source https://msoapackages.intel.com/nuget --name MSOA 
 
-    # # nuget V2 source
-    # - name: Add nuget package source
-    #   run: dotnet nuget add source https://www.nuget.org/api/v2 --name nugetV2
+    # nuget V2 source
+    - name: Add nuget package source
+      run: dotnet nuget add source https://www.nuget.org/api/v2 --name nugetV2
 
     # # Restore MSOA nuget source
     # - name: Restore MSOA nuget source
     #   run: dotnet restore -s https://msoapackages.intel.com/nuget --name MSOA
-      
+
     # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.0.2
@@ -111,9 +113,9 @@ jobs:
     - name: Create the app package
       run: msbuild $env:Wap_Project_Path /p:Configuration=$env:Configuration /p:UapAppxPackageBuildMode=$env:Appx_Package_Build_Mode /p:AppxBundle=$env:Appx_Bundle /p:PackageCertificateKeyFile=GitHubActionsWorkflow.pfx /p:PackageCertificatePassword=${{ secrets.Pfx_Key }}
       env:
-        Appx_Bundle: Always
-        Appx_Bundle_Platforms: x86|x64
-        Appx_Package_Build_Mode: StoreUpload
+        # Appx_Bundle: Always
+        # Appx_Bundle_Platforms: x86|x64
+        # Appx_Package_Build_Mode: StoreUpload
         Configuration: ${{ matrix.configuration }}
 
     # Remove the pfx
