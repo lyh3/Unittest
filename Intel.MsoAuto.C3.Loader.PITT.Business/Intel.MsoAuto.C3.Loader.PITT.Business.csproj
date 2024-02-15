@@ -8,8 +8,17 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="AAM-Dotnet" Version="1.0.1" />
-		<PackageReference Include="Intel.MsoAuto.C3.PITT.Business" Version="1.0.0.8" />
+	  <Compile Remove="Entities\PITT\**" />
+	  <EmbeddedResource Remove="Entities\PITT\**" />
+	  <None Remove="Entities\PITT\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Remove="DataContext\YieldAnalysisForecastItem.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Intel.MsoAuto.C3.MailService.Notification" Version="1.0.0.11" />
 		<PackageReference Include="Intel.MsoAuto.DataAccess" Version="1.0.0.3" />
 		<PackageReference Include="Intel.MsoAuto.Shared" Version="1.0.0.16" />
 		<PackageReference Include="log4net" Version="2.0.15" />
@@ -24,15 +33,7 @@
 		<PackageReference Include="MongoDB.Driver" Version="2.19.1" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\Intel.MsoAuto.C3.Loader.XCCB.Business\Intel.MsoAuto.C3.Loader.XCCB.Business.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\Intel.MsoAuto.C3.Loader.XCCB.Business\Intel.MsoAuto.C3.Loader.XCCB.Business.csproj" />
-	  <ProjectReference Include="..\Intel.MsoAuto.C3.MailService.Notification\Intel.MsoAuto.C3.MailService.Notification.csproj" />
+		<PackageReference Include="Intel.MsoAuto.C3.PITT.Business" Version="1.0.0.5" />
 	</ItemGroup>
 
 	<ItemGroup>
