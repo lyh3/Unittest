@@ -2,19 +2,10 @@
 using MongoDB.Bson;
 using System.Text.Json.Serialization;
 using Intel.MsoAuto.C3.PITT.Business.Models.Workflows;
+using Intel.MsoAuto.C3.PITT.Business.Models.Interfaces;
 
 namespace Intel.MsoAuto.C3.Loader.PITT.Business.Entities
 {
-    public enum LifeCycleStatus
-    {
-        DRAFT,
-        ACTIVE,
-        DROPPED,
-        COMPLETED,
-        INACTIVE,
-        HOLD
-    }
-
     [BsonIgnoreExtraElements]
     public class Project
     {
@@ -29,6 +20,7 @@ namespace Intel.MsoAuto.C3.Loader.PITT.Business.Entities
         public List<string>? sitesAffected { get; set; }
         public string? projectProcessId { get; set; }
         public DateTime? updatedProjectECD { get; set; }
+        public string? finalXccbDocumentNum { get; set; }
         public bool isActive { get; set; } = true;
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public LifeCycleStatus lifeCycleStatus { get; set; } = LifeCycleStatus.DRAFT;

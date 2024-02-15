@@ -10,6 +10,7 @@ namespace Intel.MsoAuto.C3.Loader.PITT.Business.Entities
         [BsonRepresentation(BsonType.ObjectId)]
         public string? id { get; set; }
         public string? siteName { get; set; }
+        public string? segment { get; set; }
         public List<PittSiteMappingItem>? siteMappings { get; set; }
 
     }

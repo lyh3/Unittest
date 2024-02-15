@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Intel.MSOAuto.C3.Loader.CCSapHana.DailyTask": {
+      "commandName": "Project",
+      "commandLineArgs": "ParentCEIDtoCEIDMapping"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Intel.MsoAuto.C3.MailService.Test": {
+      "commandName": "Project",
+      "nativeDebugging": true,
+      "sqlDebugging": true
+    }
+  }
+}

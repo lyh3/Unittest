@@ -1,0 +1,1 @@
+nuget push Intel.MsoAuto.C3.MailService.Notification.1.0.0.29.nupkg  CopyAndShareSmart -Source https://msoapackages.intel.com/nuget

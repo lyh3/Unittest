@@ -23,6 +23,9 @@ namespace Intel.MsoAuto.C3.Loader.PITT.Business.Core
         private static string env = String.Empty;
         private static string globalSuppliersSp = String.Empty;
         private static string workerServiceApiUrl = String.Empty;
+        private static string pittApiUrl = String.Empty;
+        private static AzureAuthSettings azureAuthSettings = null;
+        private static AAMSettings aamSettings = null;
 
         public Settings(IConfiguration configuration, string key)
         {
@@ -38,20 +41,20 @@ namespace Intel.MsoAuto.C3.Loader.PITT.Business.Core
             {
                 if (String.IsNullOrWhiteSpace(c3ConnectionString))
                 {
-                    switch (config.GetSection("enviroment").Value)
+                    switch (config.GetSection(Constants.ENVIRONMENT).Value)
                     {
-                        case "dev":
+                        case Constants.DEV_CONFIG:
                             c3ConnectionString = config.GetSection("SQL:ConnectionStringDev").Value;
                             break;
-                        case "int":
-                        case "prod":
+                        case Constants.INT_CONFIG:
+                        case Constants.PROD_CONFIG:
                             c3ConnectionString = config.GetSection("SQL:ConnectionStringInt").Value;
                             break;
                         default:
                             break;
                     }
 
-     
+
                 }
                 return c3ConnectionString;
             }
@@ -103,7 +106,7 @@ namespace Intel.MsoAuto.C3.Loader.PITT.Business.Core
             {
                 if (String.IsNullOrWhiteSpace(dbNameInt))
                 {
-                    dbNameInt = config.GetSection("MongoDb:DatbaseNameInt").Value;
+                    dbNameInt = config.GetSection("MongoDb:DatabaseNameInt").Value;
 
                 }
                 return dbNameInt;
@@ -167,7 +170,7 @@ namespace Intel.MsoAuto.C3.Loader.PITT.Business.Core
             {
                 if (String.IsNullOrWhiteSpace(env))
                 {
-                    env = config.GetSection("enviroment").Value;
+                    env = config.GetSection("environment").Value;
 
                 }
                 return env;
@@ -186,7 +189,7 @@ namespace Intel.MsoAuto.C3.Loader.PITT.Business.Core
                 return globalSuppliersSp;
             }
         }
-        
+
         public static string WorkerServiceApiUrl
         {
             get
@@ -200,6 +203,44 @@ namespace Intel.MsoAuto.C3.Loader.PITT.Business.Core
             }
         }
 
+        public static string PITTApiUrl
+        {
+            get
+            {
+                if (String.IsNullOrWhiteSpace(pittApiUrl))
+                {
+                    pittApiUrl = config.GetSection("PITT:ApiUrl").Value!;
+
+                }
+                return pittApiUrl;
+            }
+        }
+
+        public static AAMSettings AAMSettings
+        {
+            get
+            {
+                string appId = config.GetSection("AAM:AppId").Value;
+                string safeName = config.GetSection("AAM:SafeName").Value;
+                string certificateThumbprint = config.GetSection("AAM:CertificateThumbprint").Value;
+                string genericAccount = config.GetSection("AAM:GenericAccount").Value;
+
+                return new AAMSettings(appId, safeName, certificateThumbprint, genericAccount);
+            }
+        }
+        public static AzureAuthSettings AzureAuthSettings
+        {
+            get
+            {
+                string clientId = config.GetSection("AzureAuth:ClientId").Value;
+                string clientSecret = DecryptStrings(config.GetSection("AzureAuth:ClientSecret").Value);
+                string scope = config.GetSection("AzureAuth:Scope").Value;
+                string baseUrl = config.GetSection("AzureAuth:BaseUrl").Value;
+
+                return new AzureAuthSettings(scope, baseUrl, clientId, clientSecret);
+            }
+        }
+
         public static string DecryptStrings(string content)
         {
             Cryptographer.CryptographyType ct = Cryptographer.CryptographyType.CBC;
@@ -208,7 +249,7 @@ namespace Intel.MsoAuto.C3.Loader.PITT.Business.Core
         }
         private void SetRolesByEnviroment(IConfiguration configuration)
         {
-            string? environment = configuration.GetSection("Enviroment").Value;
+            string? environment = configuration.GetSection("Environment").Value;
 
             try
             {

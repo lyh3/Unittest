@@ -12,5 +12,6 @@ namespace Intel.MsoAuto.C3.Loader.PITT.Business.Entities
         public string Site { get; set; }
         public string Process { get; set; }
         public string SystemName { get; set; }
+        public string Segment { get; set; }
     }
 }

@@ -8,28 +8,31 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Entities\PITT\**" />
-	  <EmbeddedResource Remove="Entities\PITT\**" />
-	  <None Remove="Entities\PITT\**" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Compile Remove="DataContext\YieldAnalysisForecastItem.cs" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<PackageReference Include="Intel.MsoAuto.C3.MailService.Notification" Version="1.0.0.11" />
+		<PackageReference Include="AAM-Dotnet" Version="1.0.1" />
+		<PackageReference Include="Intel.MsoAuto.C3.PITT.Business" Version="1.0.0.8" />
 		<PackageReference Include="Intel.MsoAuto.DataAccess" Version="1.0.0.3" />
-		<PackageReference Include="Intel.MsoAuto.Shared" Version="1.0.0.11" />
+		<PackageReference Include="Intel.MsoAuto.Shared" Version="1.0.0.16" />
 		<PackageReference Include="log4net" Version="2.0.15" />
+		<PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
-		<PackageReference Include="MongoDB.Driver" Version="2.19.2" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Identity.Client" Version="4.58.1" />
+		<PackageReference Include="MongoDB.Driver" Version="2.19.1" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
-		<PackageReference Include="Intel.MsoAuto.C3.PITT.Business" Version="1.0.0.5" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Intel.MsoAuto.C3.Loader.XCCB.Business\Intel.MsoAuto.C3.Loader.XCCB.Business.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Intel.MsoAuto.C3.Loader.XCCB.Business\Intel.MsoAuto.C3.Loader.XCCB.Business.csproj" />
+	  <ProjectReference Include="..\Intel.MsoAuto.C3.MailService.Notification\Intel.MsoAuto.C3.MailService.Notification.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

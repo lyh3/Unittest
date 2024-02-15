@@ -1,0 +1,75 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Entities\EmailNotificationData\**" />
+    <Compile Remove="Entities\EmailNotificationRequest\**" />
+    <Compile Remove="Entities\NotificationArDetail\**" />
+    <Compile Remove="Entities\NotificationSentEmail\**" />
+    <Compile Remove="Entities\NotificationWorkflowStatuses\**" />
+    <Compile Remove="Entities\Response\**" />
+    <EmbeddedResource Remove="Entities\EmailNotificationData\**" />
+    <EmbeddedResource Remove="Entities\EmailNotificationRequest\**" />
+    <EmbeddedResource Remove="Entities\NotificationArDetail\**" />
+    <EmbeddedResource Remove="Entities\NotificationSentEmail\**" />
+    <EmbeddedResource Remove="Entities\NotificationWorkflowStatuses\**" />
+    <EmbeddedResource Remove="Entities\Response\**" />
+    <None Remove="Entities\EmailNotificationData\**" />
+    <None Remove="Entities\EmailNotificationRequest\**" />
+    <None Remove="Entities\NotificationArDetail\**" />
+    <None Remove="Entities\NotificationSentEmail\**" />
+    <None Remove="Entities\NotificationWorkflowStatuses\**" />
+    <None Remove="Entities\Response\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="ActiveMessageQueue.cs" />
+    <Compile Remove="AmqConnection.cs" />
+    <Compile Remove="Core\ReadOnlyMongoDataAccess.cs" />
+    <Compile Remove="DataContext\C3CommonDataContext.cs" />
+    <Compile Remove="DataContext\NotificationMongoDbContext.cs" />
+    <Compile Remove="Entities\EmailTemplate.cs" />
+    <Compile Remove="Entities\IEmailTemplate.cs" />
+    <Compile Remove="Entities\RetryData.cs" />
+    <Compile Remove="Entities\WorkflowStatus.cs" />
+    <Compile Remove="Entities\WorkflowStatuses.cs" />
+    <Compile Remove="Entities\WorkflowStatusStrategyMapping.cs" />
+    <Compile Remove="IMailNotification.cs" />
+    <Compile Remove="MailNotification.cs" />
+    <Compile Remove="MailNotification.Util.cs" />
+    <Compile Remove="Services\C3CommonServices.cs" />
+    <Compile Remove="Services\NotificationMongoDbSevice.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="appsettings.json" />
+    <None Remove="nuget.exe" />
+    <None Remove="nugetpush.bat" />
+    <None Remove="Readme.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Intel.MOA.Utilities" Version="1.3.1" />
+    <PackageReference Include="Intel.MsoAuto.DataAccess" Version="1.0.0.3" />
+    <PackageReference Include="Intel.MsoAuto.Shared" Version="1.0.0.16" />
+    <PackageReference Include="log4net" Version="2.0.15" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
+		<PackageReference Include="MongoDB.Driver" Version="2.19.1" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Intel.MsoAuto.C3.MailService.Notification\Intel.MsoAuto.C3.MailService.Notification.csproj" />
+  </ItemGroup>
+		<ItemGroup>
+				<Reference Include="Sap.Data.Hana.Core.v2.1">
+						<HintPath>..\..\..\..\..\..\..\Program Files\sap\hdbclient\dotnetcore\v2.1\Sap.Data.Hana.Core.v2.1.dll</HintPath>
+				</Reference>
+		</ItemGroup>
+</Project>

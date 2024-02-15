@@ -7,11 +7,9 @@ using Intel.MsoAuto.C3.Loader.PITT.Business.Entities;
 using Intel.MsoAuto.C3.Loader.PITT.Business.Core;
 using MongoDB.Driver;
 using Intel.MsoAuto.C3.PITT.Business.Models;
-using System.Linq;
-using static MongoDB.Driver.WriteConcern;
-using System.Security.Policy;
 using MongoDB.Bson;
 using System.Data;
+using Intel.MsoAuto.C3.PITT.Business.Models.Interfaces;
 
 namespace Intel.MsoAuto.C3.Loader.PITT.Business.DataContext
 {
@@ -251,7 +249,9 @@ namespace Intel.MsoAuto.C3.Loader.PITT.Business.DataContext
                 //For all new UCMS we need to find the eqvialent UCM in PITT
                 foreach (Entities.Ucm newU in newUcms)
                 {
+
                     Entities.Ucm? ucm = pittUcms.Find(u => u.changeId == newU.changeId && u.processName == newU.processName);
+
                     if (ucm != null)
                     {
                         newU.updatedOn = DateTime.UtcNow;

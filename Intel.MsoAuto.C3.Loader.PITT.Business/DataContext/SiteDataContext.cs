@@ -36,6 +36,7 @@ namespace Intel.MsoAuto.C3.Loader.PITT.Business.DataContext
                     d.Site = dataAccess.DataReader["Site"].ToStringSafely();
                     d.Process = dataAccess.DataReader["Process"].ToStringSafely();
                     d.SystemName = dataAccess.DataReader["SystemName"].ToStringSafely();
+                    d.Segment = dataAccess.DataReader["Segment"].ToStringSafely();
                     data.Add(d);
                 }
                 log.Info("Total number of records from SiteMappings: " + data.Count);
@@ -67,10 +68,10 @@ namespace Intel.MsoAuto.C3.Loader.PITT.Business.DataContext
             try
             {
             List<ExternalSiteProcessMapping> externalSiteProcessMapping = new List<ExternalSiteProcessMapping>();
-            foreach (var siteMapping in siteMappings)
+            foreach (SiteMapping siteMapping in siteMappings)
             {
       
-                List<PittSiteMapping>? refMappings = SiteMappingsCollection.Find(clientSession, x => x.siteMappings.Any(t => (siteMapping.SystemName == t.externalSystemName) && (t.siteName == siteMapping.Site))).ToList();
+                List<PittSiteMapping>? refMappings = SiteMappingsCollection.Find(clientSession, x => x.siteMappings.Any(t => (siteMapping.SystemName == t.externalSystemName) && (t.siteName == siteMapping.Site) && siteMapping.Segment == x.segment)).ToList();
 
                 foreach (var refMapping in refMappings)
                 {
@@ -93,7 +94,7 @@ namespace Intel.MsoAuto.C3.Loader.PITT.Business.DataContext
                         {
                            
                             //Check if Site mapping process and site name is already a value if not add new parent Site mapping
-                            if (!externalSiteProcessMapping.Any(s => s.siteName == refMapping?.siteName && s.process == process))
+                            if (!externalSiteProcessMapping.Any(s => s.siteName == refMapping?.siteName && s.process == process && s.segment == refMapping.segment))
                             {
                                 List<PittSiteMappingItem> newSiteItems = new List<PittSiteMappingItem>();
 
@@ -115,27 +116,10 @@ namespace Intel.MsoAuto.C3.Loader.PITT.Business.DataContext
                                     updatedOn = DateTime.UtcNow,
                                     process = process,
                                     siteMappings = newSiteItems,
+                                    segment = refMapping.segment
                                 };
                                 externalSiteProcessMapping.Add(pittSiteMapping);
                             }
-                            //else
-                            //{
-                            //    //Check if Site mapping process and site name is already a value if so add into site mapping
-                            //    int externalSiteProcessMappingIndex = externalSiteProcessMapping.FindIndex(c => c.siteName == refMapping?.siteName && c.process == process);                            
-                            //    // if the same site name and system is already within the site mappings don't add it
-                            //    if (externalSiteProcessMappingIndex != -1)
-                            //    {
-                            //        if (!externalSiteProcessMapping[externalSiteProcessMappingIndex].siteMappings.Any(s => s.siteName == siteMapping.Site && s.externalProjectName == siteMapping.SystemName))
-                            //        {
-                            //            PittSiteMappingItem newItem = new PittSiteMappingItem
-                            //            {
-                            //                externalProjectName = siteMapping.SystemName,
-                            //                siteName = siteMapping.Site
-                            //            };
-                            //            externalSiteProcessMapping[externalSiteProcessMappingIndex].siteMappings.Add(newItem);
-                            //        }                             
-                            //    }                             
-                            //}
                         }
                       
                     }

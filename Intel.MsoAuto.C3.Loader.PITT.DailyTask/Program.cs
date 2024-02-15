@@ -1,10 +1,8 @@
 using System.Reflection;
 using log4net;
-using Intel.MsoAuto.C3.Loader.PITT.Business.Services;
-using Intel.MsoAuto.C3.Loader.PITT.Business.Core;
 using Intel.MsoAuto.C3.Loader.PITT.Business.Entities;
-//using Intel.MsoAuto.C3.Loader.CC.Business.Services;
-using Intel.MsoAuto.Shared.Extensions;
+using Intel.MsoAuto.C3.MailService.Notification;
+using Intel.MsoAuto.C3.MailService.Notification.Core;
 
 namespace Intel.MsoAuto.C3.Loader.PITT.DailyTask
 {
@@ -14,32 +12,50 @@ namespace Intel.MsoAuto.C3.Loader.PITT.DailyTask
         private static async Task Main(string[] args)
         {
             _log.Info("PITT DailyTask: Main -->");
-
+            string? _env = null;
             try
             {
                 IConfigurationBuilder builder = new ConfigurationBuilder()
-                                              .SetBasePath(Directory.GetCurrentDirectory())
-                                              .AddJsonFile("appsettings.json", optional: false).AddUserSecrets<UserSecrets>();
+                                          .SetBasePath(Directory.GetCurrentDirectory())
+                                          .AddJsonFile("appsettings.json", optional: false).AddUserSecrets<UserSecrets>();
                 IConfiguration config = builder.Build();
-                string encryptionKey = config.GetSection("encryptionKey").Value.ToStringSafely();
+                _env = config.GetRequiredAppSettingsValueValidation(Constants.ENVIRONMENT);
+                string encryptionKey = config.GetSection("encryptionKey").Value;
                 if (encryptionKey == null || encryptionKey.Length < 1)
                     throw new ArgumentNullException("Encryption key is not defined");
 
-                Settings settings = new Settings(config, encryptionKey);
+                Business.Core.Settings settings = new Business.Core.Settings(config, encryptionKey);
+
+                // create hosting object and DI layer
+                using IHost host = CreateHostBuilder(args).Build();
+
+                // create a service scope
+                using IServiceScope scope = host.Services.CreateScope();
+
+                IHostBuilder CreateHostBuilder(string[] strings)
+                {
+                    return Host.CreateDefaultBuilder()
+                        .ConfigureServices((_, services) =>
+                        {
+                            // DailyTask stuff
+                            services.AddSingleton<Business.Services.StateModelService>();
+                        });
+                }
+
+                IServiceProvider services = scope.ServiceProvider;
+
                 //Daily Tasks
-                new SiteService().StartApplicableSitesDailyTask();
-                new UcmService().StartUcmDailyTask();
-                new SupplierService().StartSuppliersDailyTask();
-                new StateModelService().StartStateModelDailyTask();
-                new UserService().SyncUserDataToMongo();
-                new EmailNotificationService().SendEmailNotification();
-                new BottleneckService().StartSyncYieldAnalysisForecastItemsAsync();
-             }
-            catch (Exception e)
+                new Business.Services.SiteService(_env).StartApplicableSitesDailyTask();
+                new Business.Services.UcmService(_env).StartUcmDailyTask();
+                new Business.Services.SupplierService(_env).StartSuppliersDailyTask();
+                await services.GetRequiredService<Business.Services.StateModelService>().StartStateModelDailyTask();
+                new Business.Services.UserService(_env).SyncUserDataToMongo();
+                new Business.Services.BottleneckService(_env).StartSyncYieldAnalysisForecastItemsAsync();
+                new Business.Services.EmailNotificationService(_log, _env).SendEmailNotification();
+            }
+            catch (Exception ex)
             {
-                _log.Info("PITT DailyTask: Main: Caught Exception!");
-                _log.Info(e);
-                throw new Exception(e.Message);
+                ex.ExceptionEmailNotification($"Intel.MsoAuto.C3.Loader.PITT.DailyTask - Main", new Configurations(environment: _env, sendEmail: true));
             }
             _log.Info("PITT DailyTask: Main <--");
         }

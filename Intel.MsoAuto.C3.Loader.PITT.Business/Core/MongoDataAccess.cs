@@ -16,11 +16,11 @@ namespace Intel.MsoAuto.C3.Loader.PITT.Business.Core
 
             switch (Settings.Env)
             {
-                case "dev":
+                case Constants.DEV_CONFIG:
                     _connectionString = Settings.DbConnectionStringDev;
                     _db = Settings.DbNameDev;
                     break;
-                case "int":
+                case Constants.INT_CONFIG:
                     _connectionString = Settings.DbConnectionStringInt;
                     _db = Settings.DbNameInt;
                     break;

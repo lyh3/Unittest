@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+		
+		<ItemGroup>
+		  <ProjectReference Include="..\Intel.MsoAuto.C3.Loader.EDW.Business\Intel.MsoAuto.C3.Loader.EDW.Business.csproj" />
+		  <ProjectReference Include="..\Intel.MsoAuto.C3.MailService.Notification\Intel.MsoAuto.C3.MailService.Notification.csproj" />
+		</ItemGroup>
+		<ItemGroup>
+		  <None Update="app.config">
+		    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+		    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		  </None>
+		  <None Update="appsettings.json">
+		    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		  </None>
+		</ItemGroup>
+</Project>

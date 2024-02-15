@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Intel.MsoAuto.C3.Loader.SQL.DailyTask": {
+      "commandName": "Project",
+      "commandLineArgs": "Grid"
+    }
+  }
+}

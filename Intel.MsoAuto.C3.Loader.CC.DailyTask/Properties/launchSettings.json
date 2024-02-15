@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Intel.MsoAuto.C3.Loader.CC.DailyTask": {
+      "commandName": "Project",
+      "commandLineArgs": "Pct10k"
+    }
+  }
+}

@@ -17,6 +17,7 @@ namespace Intel.MsoAuto.C3.Loader.PITT.Business.Entities
         public string? id { get; set; }
         public string? siteName { get; set; }
         public string? process { get; set; }
+        public string? segment { get; set; }
         public DateTime? createdOn { get; set; }
         public DateTime? updatedOn { get; set; }
         public List<PittSiteMappingItem>? siteMappings { get; set; }

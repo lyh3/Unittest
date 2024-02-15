@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+		<ItemGroup>
+				<PackageReference Include="Intel.MOA.Utilities" Version="1.3.1" />
+				<PackageReference Include="Intel.MsoAuto.DataAccess" Version="1.0.0.3" />
+				<PackageReference Include="Intel.MsoAuto.Shared" Version="1.0.0.16" />
+				<PackageReference Include="Intel.NsgAuto.Shared" Version="1.0.18" />
+				<PackageReference Include="log4net" Version="2.0.15" />
+				<PackageReference Include="Microsoft.Identity.Web" Version="2.13.0" />
+				<PackageReference Include="Microsoft.Identity.Web.MicrosoftGraph" Version="2.13.0" />
+				<PackageReference Include="Intel.MsoAuto.Shared" Version="1.0.0.16" />
+		</ItemGroup>
+		<ItemGroup>
+				<ProjectReference Include="..\Intel.MsoAuto.C3.Loader.SapHanaSupplierHierarchy.Business\Intel.MsoAuto.C3.Loader.SapHanaSupplierHierarchy.Business.csproj" />
+				<ProjectReference Include="..\Intel.MsoAuto.C3.MailService.Notification\Intel.MsoAuto.C3.MailService.Notification.csproj" />
+		</ItemGroup>
+		<ItemGroup>
+		  <None Update="appsettings.json">
+		    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		  </None>
+		</ItemGroup>
+</Project>

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.Globalization;
 using System.Reflection;
+using Intel.Loader.MsoAuto.C3.Entities.MsoAuto.Business.Models.Bottlenecks.YieldAnalysis;
 using Intel.MsoAuto.C3.Loader.PITT.Business.Core;
 using Intel.MsoAuto.C3.Loader.PITT.Business.Entities;
-using Intel.MsoAuto.C3.PITT.Business.Models.Bottlenecks.YieldAnalysis;
+using Intel.MsoAuto.C3.Loader.PITT.Business.Entities.PITT;
+using Intel.MsoAuto.C3.Loader.PITT.Business.Entities.PITT.Bottlenecks.YieldAnalysis;
 using Intel.MsoAuto.C3.PITT.Business.Models.Workflows;
-using Intel.MsoAuto.C3.PITT.Business.Models.Bottlenecks.Interfaces;
 using log4net;
 using MongoDB.Driver;
-using Intel.MsoAuto.C3.PITT.Business.Models.Global;
 
 namespace Intel.MsoAuto.C3.Loader.PITT.Business.DataContext
 {
@@ -39,7 +39,7 @@ namespace Intel.MsoAuto.C3.Loader.PITT.Business.DataContext
                 //Get all workflows with Waiting YA
                 var filter = Builders<StateModelAssociationProject>.Filter.ElemMatch(z => z.stateModelAssociation.stateModel.states, a => a.id == Constants.WAITING_YA_ID);
 
-                List<StateModelAssociationProject> yieldAnalysisForecastItems =  collection.Find(clientSession, filter).ToList();
+                List<StateModelAssociationProject> yieldAnalysisForecastItems = collection.Find(clientSession, filter).ToList();
 
                 //Init the forecast array that will go in mongo
                 List<YieldAnalysisForecastItem> yaForecastItems = new List<YieldAnalysisForecastItem>();
@@ -49,22 +49,23 @@ namespace Intel.MsoAuto.C3.Loader.PITT.Business.DataContext
                 int weekToday = ISOWeek.GetWeekOfYear(DateTime.UtcNow);
 
                 //Get YA bottlnecks so we can get sites
-                YieldAnalysisBottleneck yieldAnalysisBottleneck = bottleneckCollection.Find(clientSession, x => x.type == BottleneckTypeEnum.YieldAnalysis).FirstOrDefault();
-                foreach(Threshold threshold in yieldAnalysisBottleneck.details.thresholds) {
+                YieldAnalysisBottleneck yieldAnalysisBottleneck = bottleneckCollection.Find(clientSession, x => x.type == Entities.PITT.Bottlenecks.Interfaces.BottleneckTypeEnum.YieldAnalysis).FirstOrDefault();
+                foreach (Threshold threshold in yieldAnalysisBottleneck.details.thresholds)
+                {
 
                     //Add this weeks forecast item
                     yaForecastItems.Add(new YieldAnalysisForecastItem
                     {
-                        projects = new C3.PITT.Business.Models.Global.KeyValuePairs(),
+                        projects = new KeyValuePairs(),
                         siteName = threshold.siteName,
                         week = weekToday,
                         year = yearToday,
                         numOfProjects = 0,
-                        workWeek="WW"+weekToday.ToString() + " " + yearToday.ToString(),
-                        createdBy="system",
-                        createdOn=DateTime.UtcNow,
-                        updatedBy="system",
-                        updatedOn=DateTime.UtcNow,
+                        workWeek = "WW" + weekToday.ToString() + " " + yearToday.ToString(),
+                        createdBy = "system",
+                        createdOn = DateTime.UtcNow,
+                        updatedBy = "system",
+                        updatedOn = DateTime.UtcNow,
                     });
 
                     //Add the next 13 work week forecast items
@@ -77,7 +78,7 @@ namespace Intel.MsoAuto.C3.Loader.PITT.Business.DataContext
                         {
                             projects = new KeyValuePairs(),
                             siteName = threshold.siteName,
-                            week = workWeekCaluclated, 
+                            week = workWeekCaluclated,
                             year = yearCalculated,
                             numOfProjects = 0,
                             workWeek = "WW" + workWeekCaluclated.ToString() + " " + yearCalculated,
@@ -112,28 +113,29 @@ namespace Intel.MsoAuto.C3.Loader.PITT.Business.DataContext
                             {
                                 //Find all the sites and date from our init YA forecast items
                                 List<YieldAnalysisForecastItem> foundYaForecastItems = yaForecastItems.FindAll(x => x.week == week && x.year == year && foundProject.sitesAffected?.Contains(x.siteName) == true);
-                                foreach(YieldAnalysisForecastItem foundYaForecastItem in foundYaForecastItems)
+                                foreach (YieldAnalysisForecastItem foundYaForecastItem in foundYaForecastItems)
                                 {
                                     int foundYaForecastItemIndex = yaForecastItems.FindIndex(x => x.week == foundYaForecastItem.week && x.year == foundYaForecastItem.year && x.siteName == foundYaForecastItem.siteName);
 
-                                    if (yaForecastItems[foundYaForecastItemIndex].projects != null && foundYaForecastItemIndex != -1 )
+                                    if (yaForecastItems[foundYaForecastItemIndex].projects != null && foundYaForecastItemIndex != -1)
                                     {
-                                        yaForecastItems[foundYaForecastItemIndex].projects!.Add(new C3.PITT.Business.Models.Global.KeyValuePair {
+                                        yaForecastItems[foundYaForecastItemIndex].projects!.Add(new Entities.PITT.KeyValuePair
+                                        {
                                             key = foundProject.id,
                                             value = foundProject.projectProcessId
                                         });
                                         yaForecastItems[foundYaForecastItemIndex].numOfProjects = yaForecastItems[foundYaForecastItemIndex].projects!.Count();
                                     }
-                              
+
                                 }
                             }
                         }
                     }
                 }
-            
+
                 //Insert into collection
-                 var deletedResults = yaCollection.DeleteMany(clientSession, _ => true);
-                 yaCollection.InsertMany(clientSession, yaForecastItems);
+                yaCollection.DeleteMany(clientSession, _ => true);
+                yaCollection.InsertMany(clientSession, yaForecastItems);
                 clientSession.CommitTransaction();
 
             }

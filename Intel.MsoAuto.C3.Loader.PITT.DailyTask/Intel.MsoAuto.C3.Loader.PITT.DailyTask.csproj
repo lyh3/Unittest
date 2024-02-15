@@ -1,21 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>dotnet-Intel.MsoAuto.C3.Loader.PITT.DailyTask-936C5A25-CE30-4FC1-A5E5-FE6EB0025C4B</UserSecretsId>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>dotnet-Intel.MsoAuto.C3.Loader.PITT.DailyTask-936C5A25-CE30-4FC1-A5E5-FE6EB0025C4B</UserSecretsId>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Intel.MsoAuto.C3.MailService.Notification" Version="1.0.0.11" />
-    <PackageReference Include="Intel.MsoAuto.C3.PITT.Business" Version="1.0.0.5" />
-    <PackageReference Include="Intel.MsoAuto.Shared" Version="1.0.0.11" />
-    <PackageReference Include="log4net" Version="2.0.15" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Intel.MsoAuto.Shared" Version="1.0.0.16" />
+		<PackageReference Include="log4net" Version="2.0.15" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+		<PackageReference Include="System.Text.Encoding.CodePages" Version="8.0.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Intel.MsoAuto.C3.Loader.PITT.Business\Intel.MsoAuto.C3.Loader.PITT.Business.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Intel.MsoAuto.C3.Loader.PITT.Business\Intel.MsoAuto.C3.Loader.PITT.Business.csproj" />
+		<ProjectReference Include="..\Intel.MsoAuto.C3.MailService.Notification\Intel.MsoAuto.C3.MailService.Notification.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Update="appsettings.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+	<ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 </Project>
